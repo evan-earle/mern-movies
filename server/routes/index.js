@@ -1,16 +1,13 @@
 import express from "express";
-import {
-  getGenres,
-  getMovie,
-  getPopularMovies,
-  searchMovies,
-} from "../controllers/music.js";
+import authRoutes from "./auth.js";
+import usersRoutes from "./users.js";
+import moviesRoutes from "./movies.js";
+import checkAuth from "../utils/checkAuth.js";
 
 const router = express.Router();
 
-router.get("/popularMusic/:page", getPopularMovies);
-router.get("/searchMusic/:query", searchMovies);
-router.get("/movie/:id", getMovie);
-router.get("/genre", getGenres);
+router.use("/auth", authRoutes);
+router.use("/users", checkAuth, usersRoutes);
+router.use("/movies", checkAuth, moviesRoutes);
 
 export default router;
