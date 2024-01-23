@@ -5,6 +5,7 @@ const MovieContext = createContext();
 
 const MovieProvider = ({ children }) => {
   const [user, setUser] = useState();
+  const [movies, setMovies] = useState();
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -17,6 +18,8 @@ const MovieProvider = ({ children }) => {
       value={{
         user,
         setUser,
+        movies,
+        setMovies,
       }}
     >
       {children}
@@ -24,7 +27,7 @@ const MovieProvider = ({ children }) => {
   );
 };
 
-export const ChatState = () => {
+export const MovieState = () => {
   return useContext(MovieContext);
 };
 

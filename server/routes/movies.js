@@ -8,8 +8,8 @@ import {
 
 const router = express.Router();
 
-router.get("/popularMusic/:page", getPopularMovies);
-router.get("/searchMusic/:query", searchMovies);
+router.get("/popularMovies/:page", getPopularMovies);
+router.get("/searchMovies/:query", searchMovies);
 router.get("/movie/:id", getMovie);
 router.get("/genre", getGenres);
 

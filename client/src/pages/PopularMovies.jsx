@@ -1,43 +1,51 @@
-// import { useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { getPopularMovies, resetState } from "../redux/movies";
-// import { Loader } from "../components/Loader";
-// import { Movies } from "../components/Movies";
-// import { Typography } from "@mui/material";
-// import InfiniteScroll from "react-infinite-scroll-component";
+import { useEffect } from "react";
+import { Movies } from "../components/Movies.jsx";
+import InfiniteScroll from "react-infinite-scroll-component";
+import axios from "axios";
+import { Header } from "../components/Header";
+import { SearchMovies } from "../components/SearchMovies";
+import { MovieState } from "../context/MovieProvider";
 
 export const PopularMovies = () => {
-  //   const dispatch = useDispatch();
-  //   const { movies } = useSelector((store) => store);
-  //   const { genres } = useSelector((store) => store.genres);
-  //   useEffect(() => {
-  //     dispatch(getPopularMovies());
-  //     return () => {
-  //       dispatch(resetState());
-  //     };
-  //   }, [dispatch]);
-  //   const loadMore = () => {
-  //     if (movies.hasMore) {
-  //       dispatch(getPopularMovies(movies.page + 1));
-  //     }
-  //   };
-  //   return movies.page === 0 && movies.isFetching ? (
-  //     <Loader />
-  //   ) : (
-  //     <>
-  //       <Typography component="h2" variant="h3" gutterBottom={true}>
-  //         Popular Movies
-  //       </Typography>
-  //       <InfiniteScroll
-  //         dataLength={movies.totalResults}
-  //         next={loadMore}
-  //         hasMore={movies.hasMore}
-  //         loader={<Loader />}
-  //         style={{ overflowY: "hidden" }}
-  //         endMessage={<p>End of movies</p>}
-  //       >
-  //         <Movies movies={movies} genres={genres} />
-  //       </InfiniteScroll>
-  //     </>
-  //   );
+  const { movies, setMovies } = MovieState();
+
+  useEffect(() => {
+    fetchMovies();
+  }, []);
+
+  const fetchMovies = async () => {
+    try {
+      const { data } = await axios.get(`/api/movies/popularMovies/1`);
+      setMovies(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const loadMore = () => {};
+
+  return (
+    <div className="flex flex-col justify-center w-full items-center">
+      <Header />
+      <div className="flex flex-col w-9/12">
+        <SearchMovies />
+        <h2 className="text-white text-5xl mt-10 ">Popular Movies</h2>
+      </div>
+      {/* <InfiniteScroll
+        dataLength={movies.totalResults}
+        next={loadMore}
+        hasMore={movies.hasMore}
+        // loader={<Loader />}
+        style={{ overflowY: "hidden" }}
+        endMessage={<p>End of movies</p>}
+      >
+       
+      </InfiniteScroll>  */}
+      <Movies />
+    </div>
+  );
 };
+// genres={genres}
+//movies.page === 0 && movies.isFetching ? (
+//   <Loader />
+// )
