@@ -9,7 +9,10 @@ export const Loader = () => {
       color="white"
       secondaryColor="grey"
       ariaLabel="oval-loading"
-      wrapperStyle={{ justifyContent: "center", margin: "1rem" }}
+      wrapperStyle={{
+        justifyContent: "center",
+        margin: "1rem",
+      }}
     />
   );
 };

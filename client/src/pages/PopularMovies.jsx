@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Movies } from "../components/Movies.jsx";
 import InfiniteScroll from "react-infinite-scroll-component";
 import axios from "axios";
@@ -9,6 +9,7 @@ import { Loader } from "../components/Loader.jsx";
 
 export const PopularMovies = () => {
   const { movies, setMovies, genre, setGenre } = MovieState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchMovies();
@@ -16,6 +17,7 @@ export const PopularMovies = () => {
   }, []);
 
   const fetchMovies = async (page = 1) => {
+    setLoading(true);
     try {
       const { data } = await axios.get(`/api/movies/popularMovies/${page}`);
 
@@ -30,6 +32,7 @@ export const PopularMovies = () => {
             }));
           }, 1000)
         : setMovies(data);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -55,20 +58,23 @@ export const PopularMovies = () => {
         <SearchMovies />
         <h2 className="text-white text-5xl mt-10 ">Popular Movies</h2>
       </div>
-      {movies && (
-        <div className="w-9/12">
-          <InfiniteScroll
-            dataLength={movies.total_results}
-            next={fetchMore}
-            hasMore={true}
-            loader={<Loader />}
-            style={{ overflowY: "hidden" }}
-            endMessage={<p>End of movies</p>}
-            className="duration-300"
-          >
-            <Movies />
-          </InfiniteScroll>
-        </div>
+      {loading ? (
+        <Loader />
+      ) : (
+        movies && (
+          <div className="w-9/12">
+            <InfiniteScroll
+              dataLength={movies.total_results}
+              next={fetchMore}
+              hasMore={true}
+              loader={<Loader />}
+              style={{ overflowY: "hidden" }}
+              endMessage={<p>End of movies</p>}
+            >
+              <Movies />
+            </InfiniteScroll>
+          </div>
+        )
       )}
     </div>
   );

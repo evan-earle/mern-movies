@@ -10,14 +10,13 @@ import { useState } from "react";
 
 export const MovieDetails = () => {
   const id = useParams();
-  const { movies, setMovies, movie, setMovie } = MovieState();
+  const { movies, setMovies, movie, setMovie, search } = MovieState();
   const [loading, setLoading] = useState(false);
 
   const getMovie = async () => {
     try {
       setLoading(true);
       const { data } = await axios.get(`/api/movies/movie/${id.id}`);
-      console.log(data);
       setMovie(data);
       setLoading(false);
     } catch (error) {
@@ -27,7 +26,7 @@ export const MovieDetails = () => {
 
   useEffect(() => {
     getMovie();
-  }, []);
+  }, [search]);
 
   return (
     <div className="flex flex-col justify-center w-full items-center">

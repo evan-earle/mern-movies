@@ -12,7 +12,11 @@ export const Movies = () => {
       {movies &&
         genre &&
         movies.results.map((movie, index) => (
-          <div key={index} className="relative h-full">
+          <div
+            key={index}
+            className="relative h-full"
+            onClick={() => setMovies()}
+          >
             <Link to={`/movie/${movie.id}`}>
               {movie.poster_path ? (
                 <img
@@ -23,8 +27,13 @@ export const Movies = () => {
                 <img src={`${COVER_PLACEHOLDER}`} alt={movie.title} />
               )}
               <div className="text-white absolute w-full p-3 bottom-0 bg-black/50">
-                <div className="text-lg  overflow-hidden truncate">
+                <div className="text-xl  overflow-hidden truncate">
                   {movie.title}
+                  <div className="text-base">
+                    {new Date(movie.release_date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                    })}
+                  </div>
                 </div>
 
                 <div className="text-sm  overflow-hidden truncate">
