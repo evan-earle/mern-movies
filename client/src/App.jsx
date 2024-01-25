@@ -4,6 +4,7 @@ import { PopularMovies } from "./pages/PopularMovies";
 import { Watchlist } from "./pages/Watchlist";
 import { Toaster } from "react-hot-toast";
 import PrivateRoutes from "./components/PrivateRoutes";
+import { MovieDetails } from "./pages/MovieDetails";
 
 function App() {
   return (
@@ -23,7 +24,9 @@ function App() {
           <Route element={<PrivateRoutes />}>
             <Route path="/popular" element={<PopularMovies />} />
             <Route path="/watchlist" element={<Watchlist />} />
+            <Route path="/movie/:id" element={<MovieDetails />} />
           </Route>
+
           <Route path="/" element={<Home />} />
         </Routes>
       </Router>

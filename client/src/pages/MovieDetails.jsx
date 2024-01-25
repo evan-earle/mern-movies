@@ -1,26 +1,41 @@
 import { useEffect } from "react";
-
 import { Loader } from "../components/Loader";
 import { Movie } from "../components/Movie";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { Header } from "../components/Header";
+import { SearchMovies } from "../components/SearchMovies";
+import { MovieState } from "../context/MovieProvider";
+import { useState } from "react";
 
 export const MovieDetails = () => {
-  useEffect(() => {
-    dispatch(getMovie(id ? parseInt(id, 10) : 0));
+  const id = useParams();
+  const { movies, setMovies, movie, setMovie } = MovieState();
+  const [loading, setLoading] = useState(false);
 
-    return () => {
-      dispatch(resetState);
-    };
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (id !== movie.id?.toString()) {
-      dispatch(getMovie(id ? parseInt(id, 10) : 0));
+  const getMovie = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(`/api/movies/movie/${id.id}`);
+      console.log(data);
+      setMovie(data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
     }
-  }, [id, movie.id]);
+  };
 
-  return movie.isFetching ? (
-    <Loader />
-  ) : (
-    <Movie movie={movie} genres={genres} />
+  useEffect(() => {
+    getMovie();
+  }, []);
+
+  return (
+    <div className="flex flex-col justify-center w-full items-center">
+      <Header />
+      <div className="flex flex-col w-9/12">
+        <SearchMovies />
+      </div>
+      {loading ? <Loader /> : <Movie />}
+    </div>
   );
 };

@@ -5,15 +5,15 @@ import { MovieState } from "../context/MovieProvider";
 import { mapGenres } from "../lib/helper";
 
 export const Movies = () => {
-  const { movies, setMovies } = MovieState();
+  const { movies, setMovies, genre, setGenre } = MovieState();
 
-  console.log(movies);
   return (
-    <div className="w-9/12 mt-10 grid grid-cols-5 gap-4 ">
+    <div className="w-full mt-10 grid grid-cols-5 gap-4 h-full">
       {movies &&
-        movies.results.map((movie) => (
-          <div key={movie.id} className="relative h-full">
-            <Link to={`/movie/${movie.id}}`}>
+        genre &&
+        movies.results.map((movie, index) => (
+          <div key={index} className="relative h-full">
+            <Link to={`/movie/${movie.id}`}>
               {movie.poster_path ? (
                 <img
                   src={`${IMAGES_PATH}/w300${movie.poster_path}`}
@@ -22,13 +22,13 @@ export const Movies = () => {
               ) : (
                 <img src={`${COVER_PLACEHOLDER}`} alt={movie.title} />
               )}
-              <div className="absolute w-full p-3 bottom-0 bg-black/50">
-                <div className="text-white text-lg ">
-                  {movie.title.length > 19
-                    ? movie.title.substring(0, 19) + "..."
-                    : movie.title}
+              <div className="text-white absolute w-full p-3 bottom-0 bg-black/50">
+                <div className="text-lg  overflow-hidden truncate">
+                  {movie.title}
+                </div>
 
-                  {/* {mapGenres(movie.genre_ids, genres)} */}
+                <div className="text-sm  overflow-hidden truncate">
+                  {mapGenres(movie.genre_ids, genre.genres)}
                 </div>
               </div>
             </Link>

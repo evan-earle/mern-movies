@@ -12,8 +12,6 @@ export const Login = ({ authType }) => {
   const [loading, setLoading] = useState(false);
   const [guestLoading, setGuestLoading] = useState(false);
 
-  // const { setUser } = ChatState();
-
   const showPassword = (e) => {
     e.preventDefault();
     setShow(!show);

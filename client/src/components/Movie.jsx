@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
 import { IMAGES_PATH, COVER_PLACEHOLDER } from "../config";
-import { Movies } from "./Movies";
+import { MovieState } from "../context/MovieProvider";
 
-export const Movie = ({ movie, genres }) => {
+export const Movie = () => {
+  const { movie, setMovie } = MovieState();
+
   const formatRunTime = (runtime) => {
     const hours = Math.floor(runtime / 60) + "h";
     const minutes = (runtime % 60) + "m";
@@ -11,96 +13,44 @@ export const Movie = ({ movie, genres }) => {
 
   return (
     <>
-      <GridStyled container={true} spacing={2}>
-        <Grid item={true} md={3}>
-          {movie.poster_path ? (
-            <ImgStyled
-              src={`${IMAGES_PATH}/w300${movie.poster_path}`}
-              alt={movie.title}
-            />
-          ) : (
-            <ImgStyled src={`${COVER_PLACEHOLDER}`} alt={movie.title} />
-          )}
-        </Grid>
-        <Grid item={true} md={9}>
-          <Typography component="h1" variant="h3" gutterBottom={true}>
-            {movie.title}
-          </Typography>
-          {movie.tagline && (
-            <>
-              <Typography component="h3" variant="h6">
-                Tagline:
-              </Typography>
-              <Typography component="h3" variant="body1" gutterBottom={true}>
-                {movie.tagline}
-              </Typography>
-            </>
-          )}
-          {movie.genres && (
-            <>
-              <Typography component="h3" variant="h6">
-                Genre:
-              </Typography>
-              <Typography component="h3" variant="body1" gutterBottom={true}>
-                {movie.genres.map((genre) => genre.name).join(", ")}
-              </Typography>
-            </>
-          )}
-          {movie.production_countries && (
-            <>
-              <Typography component="h3" variant="h6">
-                Country:
-              </Typography>
-              <Typography component="h3" variant="body1" gutterBottom={true}>
-                {movie.production_countries
-                  .map((country) => country.name)
-                  .join(", ")}
-              </Typography>
-            </>
-          )}
-          {movie.runtime && (
-            <>
-              <Typography component="h3" variant="h6">
-                Duration:
-              </Typography>
-              <Typography component="h3" variant="body1" gutterBottom={true}>
-                {formatRunTime(movie.runtime)}
-              </Typography>
-            </>
-          )}
-          {movie.release_date && (
-            <>
-              <Typography component="h3" variant="h6">
-                Release Date:
-              </Typography>
-              <Typography component="h3" variant="body1" gutterBottom={true}>
+      {movie && (
+        <div className="flex w-9/12 text-white mt-10">
+          <div className="w-3/12 mr-5">
+            {movie.poster_path ? (
+              <img
+                className="w-full "
+                src={`${IMAGES_PATH}/w300${movie.poster_path}`}
+                alt={movie.title}
+              />
+            ) : (
+              <img src={`${COVER_PLACEHOLDER}`} alt={movie.title} />
+            )}
+          </div>
+          <div className="w-8/12">
+            <h1 className="text-5xl">{movie.title}</h1>
+            {movie.runtime && (
+              <h3 className="mt-5">
+                {formatRunTime(movie.runtime)} ·{" "}
                 {new Date(movie.release_date).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
                   day: "numeric",
-                })}
-              </Typography>
-            </>
-          )}
-          {movie.overview && (
-            <>
-              <Typography component="h3" variant="h6">
-                Description:
-              </Typography>
-              <Typography component="h3" variant="body1" gutterBottom={true}>
-                {movie.overview}
-              </Typography>
-            </>
-          )}
-        </Grid>
-      </GridStyled>
-      {movie.recommendations && (
-        <>
-          <Typography component="h2" variant="h4" gutterBottom={true}>
-            Recommended
-          </Typography>
-          <Movies movies={movie.recommendations} genres={genres} />
-        </>
+                })}{" "}
+                ·{" "}
+                {movie.production_countries
+                  .map((country) => country.name)
+                  .join(", ")}
+              </h3>
+            )}
+            {movie.overview && <h3 className="mt-5">{movie.overview}</h3>}
+
+            {movie.genres && (
+              <h3 className="mt-5">
+                {movie.genres.map((genre) => genre.name).join(", ")}
+              </h3>
+            )}
+          </div>
+        </div>
       )}
     </>
   );

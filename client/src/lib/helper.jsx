@@ -1,5 +1,5 @@
-export function mapGenres(genIds, genres) {
-  const genresMap = genres.reduce((result, current) => {
+export function mapGenres(genIds, genre) {
+  const genresMap = genre.reduce((result, current) => {
     result[current.id] = current.name;
     return result;
   }, {});

@@ -6,6 +6,8 @@ const MovieContext = createContext();
 const MovieProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [movies, setMovies] = useState();
+  const [genre, setGenre] = useState();
+  const [movie, setMovie] = useState();
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -20,6 +22,10 @@ const MovieProvider = ({ children }) => {
         setUser,
         movies,
         setMovies,
+        genre,
+        setGenre,
+        movie,
+        setMovie,
       }}
     >
       {children}
