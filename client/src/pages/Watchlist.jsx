@@ -49,7 +49,7 @@ export const Watchlist = () => {
       <Header />
       <div className="flex flex-col w-9/12 max-sm:w-11/12 max-sm:items-center">
         <SearchMovies />
-        <h2 className="text-white text-5xl mt-10 max-sm:text-4xl max-sm:mt-5">
+        <h2 className="text-white text-5xl mt-10 max-sm:text-4xl max-sm:mt-8">
           Watchlist
         </h2>
       </div>
