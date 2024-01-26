@@ -6,18 +6,20 @@ import { Header } from "../components/Header";
 import { SearchMovies } from "../components/SearchMovies";
 import { MovieState } from "../context/MovieProvider";
 import { Loader } from "../components/Loader.jsx";
+import { Nav } from "../components/Nav.jsx";
 
 export const PopularMovies = () => {
   const { movies, setMovies, genre, setGenre } = MovieState();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     fetchMovies();
     fetchGenres();
+    setLoading(false);
   }, []);
 
   const fetchMovies = async (page = 1) => {
-    setLoading(true);
     try {
       const { data } = await axios.get(`/api/movies/popularMovies/${page}`);
 
@@ -32,7 +34,6 @@ export const PopularMovies = () => {
             }));
           }, 1000)
         : setMovies(data);
-      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -53,6 +54,7 @@ export const PopularMovies = () => {
 
   return (
     <div className="flex flex-col justify-center w-full items-center">
+      <Nav />
       <Header />
       <div className="flex flex-col w-9/12">
         <SearchMovies />

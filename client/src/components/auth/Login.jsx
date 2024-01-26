@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Oval } from "react-loader-spinner";
+import { MovieState } from "../../context/MovieProvider";
 
 export const Login = ({ authType }) => {
+  const { user, setUser } = MovieState();
   const [show, setShow] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +34,7 @@ export const Login = ({ authType }) => {
         password,
       });
 
-      // setUser(data);
+      setUser(data);
 
       localStorage.setItem("userInfo", JSON.stringify(data));
 

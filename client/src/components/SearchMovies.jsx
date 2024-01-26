@@ -73,7 +73,7 @@ export const SearchMovies = () => {
                 )}
                 <div className="ml-5 mt-3">
                   <div className="flex items-center">
-                    <h6 className="w-full text-2xl mr-1">{movie.title} · </h6>
+                    <h6 className="text-2xl mr-1">{movie.title} ·</h6>
                     <h6>
                       {new Date(movie.release_date).toLocaleDateString(
                         "en-US",

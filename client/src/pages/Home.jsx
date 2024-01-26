@@ -22,7 +22,7 @@ export const Home = () => {
   return (
     <div className="min-h-full h-screen flex items-center flex-col py-6 px-4 sm:px-6 lg:px-8 bg-no-repeat bg-cover bg-center  ">
       <h1 className="w-1/3 flex justify-center mb-3 p-4 rounded bg-slate-50 text-3xl max-lg:w-2/3 max-sm:w-full">
-        Movies App
+        FilmFindr
       </h1>
       {authType === "login" ? (
         <Login authType={changeAuthType} />
