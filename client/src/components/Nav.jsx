@@ -58,44 +58,42 @@ export const Nav = () => {
   };
 
   return (
-    <div className="text-white flex justify-end w-9/12 p-3 h-5 max-sm:w-full max-sm:justify-center">
-      <div className="flex items-center mt-5">
-        <div className="mr-10 max-sm:mr-4">{user.name}</div>
-        <div className="mr-10 max-sm:mr-4">
-          {loading ? (
-            <Loader width={20} />
-          ) : (
-            <img
-              src={user.image}
-              alt="profile-photo"
-              className="rounded-full w-14 h-14 cursor-pointer"
-              onClick={handleImageClick}
-            />
-          )}
-          <input
-            type="file"
-            className="hidden"
-            ref={fileInputRef}
-            onChange={changePhoto}
+    <div className="text-white mt-8 flex justify-end items-center w-9/12 p-3 h-5 max-sm:w-10/12 max-sm:justify-between">
+      <div className="mr-10 max-sm:mr-4">{user.name}</div>
+      <div className="mr-10 max-sm:mr-4">
+        {loading ? (
+          <Loader width={20} />
+        ) : (
+          <img
+            src={user.image}
+            alt="profile-photo"
+            className="rounded-full w-14 h-14 cursor-pointer"
+            onClick={handleImageClick}
           />
-        </div>
+        )}
+        <input
+          type="file"
+          className="hidden"
+          ref={fileInputRef}
+          onChange={changePhoto}
+        />
+      </div>
 
-        <Link to="/watchlist">
-          <button
-            type="submit"
-            className="mr-10 hover:text-slate-500 duration-100 max-sm:mr-4"
-          >
-            Watchlist
-          </button>
-        </Link>
+      <Link to="/watchlist">
         <button
           type="submit"
-          className="hover:text-slate-500 duration-100"
-          onClick={handleLogout}
+          className="mr-10 hover:text-slate-500 duration-100 max-sm:mr-4"
         >
-          Logout
+          Watchlist
         </button>
-      </div>
+      </Link>
+      <button
+        type="submit"
+        className="hover:text-slate-500 duration-100"
+        onClick={handleLogout}
+      >
+        Logout
+      </button>
     </div>
   );
 };
