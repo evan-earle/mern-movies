@@ -9,6 +9,7 @@ const MovieProvider = ({ children }) => {
   const [genre, setGenre] = useState();
   const [movie, setMovie] = useState();
   const [search, setSearch] = useState();
+  const [watchlist, setWatchlist] = useState();
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -29,6 +30,8 @@ const MovieProvider = ({ children }) => {
         setMovie,
         search,
         setSearch,
+        watchlist,
+        setWatchlist,
       }}
     >
       {children}

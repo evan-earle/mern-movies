@@ -1,6 +1,6 @@
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export const Nav = () => {
   const navigate = useNavigate();
@@ -8,7 +8,6 @@ export const Nav = () => {
   const handleLogout = async () => {
     try {
       await axios.get("/api/auth/logout");
-
       localStorage.removeItem("userInfo");
       toast.success("Logged out");
       navigate("/");
@@ -19,10 +18,19 @@ export const Nav = () => {
 
   return (
     <div className="text-white flex justify-end w-9/12 p-3">
-      <button type="submit" className="mr-10">
-        Watchlist
-      </button>
-      <button type="submit" className="" onClick={handleLogout}>
+      <Link to="/watchlist">
+        <button
+          type="submit"
+          className="mr-10 hover:text-slate-500 duration-100"
+        >
+          Watchlist
+        </button>
+      </Link>
+      <button
+        type="submit"
+        className="hover:text-slate-500 duration-100"
+        onClick={handleLogout}
+      >
         Logout
       </button>
     </div>

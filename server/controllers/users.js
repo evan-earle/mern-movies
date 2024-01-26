@@ -97,3 +97,48 @@ export const allUsers = async (req, res, next) => {
     return next(err);
   }
 };
+
+export const getWatchlist = async (req, res, next) => {
+  try {
+    const data = await User.findById(req.user.id, {}).select("watchlist");
+    return res.status(200).json(data);
+  } catch (err) {
+    return next(err);
+  }
+};
+
+export const addWatchlist = async (req, res, next) => {
+  try {
+    const prelist = await User.findById(req.user.id, {}).select("watchlist");
+
+    await User.findByIdAndUpdate(req.user.id, {
+      $addToSet: {
+        watchlist: req.params.id,
+      },
+    });
+    const postlist = await User.findById(req.user.id, {}).select("watchlist");
+
+    postlist > prelist
+      ? res.status(200).json(true)
+      : res.status(200).json(false);
+  } catch (err) {
+    return next(err);
+  }
+};
+
+export const deleteWatchlist = async (req, res, next) => {
+  try {
+    const data = await User.findByIdAndUpdate(
+      req.user.id,
+      {
+        $pull: {
+          watchlist: req.params.id,
+        },
+      },
+      { new: true }
+    );
+    return res.status(200).json(data);
+  } catch (err) {
+    return next(err);
+  }
+};

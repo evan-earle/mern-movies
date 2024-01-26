@@ -26,6 +26,7 @@ export const MovieDetails = () => {
 
   useEffect(() => {
     getMovie();
+    setMovies();
   }, [search]);
 
   return (
