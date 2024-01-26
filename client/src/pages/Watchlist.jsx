@@ -56,7 +56,7 @@ export const Watchlist = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="w-9/12 mt-10 grid grid-cols-6 gap-4 h-full mb-10  max-sm:grid-cols-2 max-sm:mt-5 max-sm:w-11/12">
+        <div className="w-9/12 mt-10 grid grid-cols-6 gap-4 h-full mb-10 max-lg:grid-cols-3 max-sm:grid-cols-2 max-sm:mt-5 max-sm:w-11/12">
           {watchlist &&
             genre &&
             watchlist.map((movie, index) => (
