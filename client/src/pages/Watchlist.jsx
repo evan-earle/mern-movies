@@ -77,7 +77,7 @@ export const Watchlist = () => {
                     <img src={`${COVER_PLACEHOLDER}`} alt={movie.title} />
                   )}
                   <div className="text-white absolute w-full p-2 bottom-0 bg-black/50">
-                    <div className="text-xl  overflow-hidden truncate max-sm:text-lg">
+                    <div className="text-base  overflow-hidden truncate max-sm:text-lg">
                       {movie.title}
                       <div className="text-sm">
                         {new Date(movie.release_date).toLocaleDateString(

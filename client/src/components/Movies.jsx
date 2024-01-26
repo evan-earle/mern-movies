@@ -47,7 +47,7 @@ export const Movies = () => {
               )}
 
               <div className="text-white absolute w-full p-3 bottom-0 bg-black/50">
-                <div className="text-xl overflow-hidden truncate max-sm:text-lg">
+                <div className="text-base overflow-hidden truncate max-sm:text-lg">
                   {movie.title}
                   <div className="text-base">
                     {new Date(movie.release_date).toLocaleDateString("en-US", {
