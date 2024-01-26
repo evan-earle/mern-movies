@@ -7,6 +7,7 @@ import { Header } from "../components/Header";
 import { SearchMovies } from "../components/SearchMovies";
 import { MovieState } from "../context/MovieProvider";
 import { useState } from "react";
+import { Nav } from "../components/Nav.jsx";
 
 export const MovieDetails = () => {
   const id = useParams();
@@ -31,6 +32,7 @@ export const MovieDetails = () => {
 
   return (
     <div className="flex flex-col justify-center w-full items-center">
+      <Nav />
       <Header />
       <div className="flex flex-col w-9/12">
         <SearchMovies />

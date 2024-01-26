@@ -40,14 +40,26 @@ export const Register = ({ authType }) => {
   const onSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
+
     try {
-      await axios.post("/api/auth/register", {
-        name,
-        email,
-        password,
-      });
-      if (previewSource) {
-        uploadImage(previewSource, email);
+      if (!previewSource) {
+        await axios.post("/api/auth/register", {
+          name,
+          email,
+          password,
+        });
+      } else {
+        const data = await axios("/api/auth/upload", {
+          method: "POST",
+          data: JSON.stringify({ data: previewSource }),
+          headers: { "Content-type": "application/json" },
+        });
+        await axios.post("/api/auth/register", {
+          name,
+          email,
+          password,
+        });
+        storeImage(data, email);
       }
       setTimeout(() => {
         setLoading(false);
@@ -58,22 +70,16 @@ export const Register = ({ authType }) => {
       setTimeout(() => {
         setLoading(false);
         if (err.response.data.message === "User already exists") {
-          toast.error("User already exists");
-        } else {
-          toast.error("Registration failed");
+          return toast.error("User already exists");
+        } else if (err.response.data.message === "request entity too large") {
+          return toast.error("Photo is too large");
         }
       }, 1500);
     }
   };
 
-  const uploadImage = async (base64EncodedImage, email) => {
+  const storeImage = async (data, email) => {
     try {
-      const data = await axios("/api/auth/upload", {
-        method: "POST",
-        data: JSON.stringify({ data: base64EncodedImage }),
-        headers: { "Content-type": "application/json" },
-      });
-
       const photo = data.data.url;
       await axios.post(`/api/auth/storePhoto`, {
         email,
@@ -81,6 +87,7 @@ export const Register = ({ authType }) => {
       });
     } catch (err) {
       console.log(err);
+      return;
     }
   };
 

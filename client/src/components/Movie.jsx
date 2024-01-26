@@ -1,6 +1,10 @@
 /* eslint-disable react/prop-types */
 import { IMAGES_PATH, COVER_PLACEHOLDER } from "../config";
 import { MovieState } from "../context/MovieProvider";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export const Movie = () => {
   const { movie, setMovie } = MovieState();
@@ -11,11 +15,29 @@ export const Movie = () => {
     return `${hours} ${minutes}`;
   };
 
+  const addMovie = async (id) => {
+    try {
+      const { data } = await axios.post(`/api/users/watchlist/${id}`);
+
+      data === true
+        ? toast.error("Already on watchlist")
+        : toast.success("Added!");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       {movie && (
         <div className="flex w-9/12 text-white mt-10">
-          <div className="w-3/12 mr-5">
+          <div className="w-3/12 mr-5 relative">
+            <div className="cursor-pointer text-green-500 text-3xl top-0 right-0 mt-2 mr-2 absolute bg-white rounded-full  flex items-center justify-center hover:text-green-800  duration-150">
+              <FontAwesomeIcon
+                icon={faCirclePlus}
+                onClick={() => addMovie(movie.id)}
+              />
+            </div>
             {movie.poster_path ? (
               <img
                 className="w-full "

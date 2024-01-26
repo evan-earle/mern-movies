@@ -4,7 +4,7 @@ import { IMAGES_PATH, COVER_PLACEHOLDER } from "../config";
 import { MovieState } from "../context/MovieProvider";
 import { mapGenres } from "../lib/helper";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -15,9 +15,10 @@ export const Movies = () => {
   const addMovie = async (id) => {
     try {
       const { data } = await axios.post(`/api/users/watchlist/${id}`);
+
       data === true
-        ? toast.success("Added to watchlist!")
-        : toast.error("Already on watchlist");
+        ? toast.error("Already on watchlist")
+        : toast.success("Added!");
     } catch (error) {
       console.log(error);
     }
@@ -29,9 +30,9 @@ export const Movies = () => {
         genre &&
         movies.results.map((movie, index) => (
           <div key={index} className="relative h-full">
-            <div className="cursor-pointer text-green-500 text-base top-0 right-0 mt-2 mr-2 p-2 absolute bg-white rounded-full  flex items-center justify-center hover:bg-green-800 hover:border-green-800 duration-150">
+            <div className="cursor-pointer text-green-500 text-2xl top-0 right-0 mt-2 mr-2 absolute bg-white rounded-full  flex items-center justify-center hover:text-green-800  duration-150">
               <FontAwesomeIcon
-                icon={faPlus}
+                icon={faCirclePlus}
                 onClick={() => addMovie(movie.id)}
               />
             </div>

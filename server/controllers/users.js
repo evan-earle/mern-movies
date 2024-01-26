@@ -1,43 +1,6 @@
 import User from "../models/User.js";
-import bcryptjs from "bcryptjs";
-import createError from "../utils/createError.js";
 import { v2 as cloudinary } from "cloudinary";
-
-export const getUserInfo = async (req, res, next) => {
-  try {
-    const data = await User.findById(req.user.id);
-    return res.status(200).json(data);
-  } catch (err) {
-    return next(err);
-  }
-};
-
-export const updateUser = async (req, res, next) => {
-  try {
-    const user = await User.findOne({ username: req.body.username });
-
-    if (user) {
-      return next(createError({ status: 401, message: "User already exists" }));
-    }
-    const salt = await bcryptjs.genSalt(10);
-    const hashedPassword = await bcryptjs.hash(req.body.password, salt);
-
-    const updatedUser = await User.findByIdAndUpdate(
-      req.user.id,
-      {
-        username: req.body.username,
-        password: hashedPassword,
-      },
-      {
-        new: true,
-      }
-    ).select("username password");
-
-    return res.status(200).json(updatedUser);
-  } catch (err) {
-    return next(err);
-  }
-};
+import axios from "axios";
 
 export const upload = async (req, res, next) => {
   cloudinary.config({
@@ -50,7 +13,7 @@ export const upload = async (req, res, next) => {
     const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
       upload_preset: "chat-app",
     });
-    console.log(uploadedResponse);
+
     return res.status(200).json(uploadedResponse);
   } catch (err) {
     return next(err);
@@ -77,50 +40,46 @@ export const getPhoto = async (req, res, next) => {
   }
 };
 
-export const allUsers = async (req, res, next) => {
-  try {
-    const keyword = req.query.search
-      ? {
-          $or: [
-            { name: { $regex: req.query.search, $options: "i" } },
-            { email: { $regex: req.query.search, $options: "i" } },
-          ],
-        }
-      : {};
-
-    const data = await User.find(keyword).find({
-      _id: { $ne: req.user.id },
-    });
-
-    return res.status(200).json(data);
-  } catch (err) {
-    return next(err);
-  }
-};
-
 export const getWatchlist = async (req, res, next) => {
   try {
     const data = await User.findById(req.user.id, {}).select("watchlist");
-    return res.status(200).json(data);
+
+    const promises = data.watchlist.map(async (id) => {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.API_KEY}`
+      );
+
+      return response.data;
+    });
+
+    const results = await Promise.all(promises);
+
+    return res.status(200).json(results);
   } catch (err) {
     return next(err);
   }
 };
 
 export const addWatchlist = async (req, res, next) => {
+  const id = req.params.id;
   try {
-    const prelist = await User.findById(req.user.id, {}).select("watchlist");
+    const data = await User.findById(req.user.id, {}).select("watchlist");
 
-    await User.findByIdAndUpdate(req.user.id, {
-      $addToSet: {
-        watchlist: req.params.id,
-      },
-    });
-    const postlist = await User.findById(req.user.id, {}).select("watchlist");
+    if (data.watchlist.includes(id) === true) {
+      res.status(200).json(true);
+    } else {
+      await User.findByIdAndUpdate(
+        req.user.id,
+        {
+          $addToSet: {
+            watchlist: id,
+          },
+        },
+        { new: true }
+      );
 
-    postlist > prelist
-      ? res.status(200).json(true)
-      : res.status(200).json(false);
+      return res.status(200).json(false);
+    }
   } catch (err) {
     return next(err);
   }

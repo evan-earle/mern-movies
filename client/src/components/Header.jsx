@@ -1,17 +1,17 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.jpg";
 
 export const Header = () => {
   const navigate = useNavigate();
 
-  const test = () => {
+  const navToPopular = () => {
     navigate("/popular");
   };
 
   return (
     <>
-      <div className="flex justify-center w-full cursor-pointer">
-        <div className="w-1/3" onClick={test}>
+      <div className="flex justify-center w-1/3 cursor-pointer mt-14">
+        <div onClick={navToPopular}>
           <img src={logo} alt="The movie db" />
         </div>
       </div>

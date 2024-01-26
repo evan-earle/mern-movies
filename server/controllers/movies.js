@@ -32,7 +32,7 @@ export const getMovie = async (req, res, next) => {
   const id = req.params.id;
   try {
     const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.API_KEY}&append_to_response=recommendations`
+      `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.API_KEY}`
     );
 
     const data = response.data;
