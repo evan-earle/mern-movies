@@ -60,7 +60,10 @@ export const Watchlist = () => {
           {watchlist &&
             genre &&
             watchlist.map((movie, index) => (
-              <div key={index} className="relative h-full hover:opacity-65">
+              <div
+                key={index}
+                className="relative h-full hover:opacity-65 duration-150"
+              >
                 <div className=" cursor-pointer text-red-500 text-2xl max-sm:text-3xl top-0 right-0 mt-2 mr-2 absolute bg-white rounded-full  flex items-center justify-center hover:text-red-800  duration-150">
                   <FontAwesomeIcon
                     icon={faXmarkCircle}
