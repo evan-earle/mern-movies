@@ -58,10 +58,10 @@ export const Nav = () => {
   };
 
   return (
-    <div className="text-white flex justify-end w-9/12 p-3 h-5">
+    <div className="text-white flex justify-end w-9/12 p-3 h-5 max-sm:w-full max-sm:justify-center">
       <div className="flex items-center mt-5">
-        <div className="mr-10 ">{user.name}</div>
-        <div className="mr-10">
+        <div className="mr-10 max-sm:mr-4">{user.name}</div>
+        <div className="mr-10 max-sm:mr-4">
           {loading ? (
             <Loader width={20} />
           ) : (
@@ -83,7 +83,7 @@ export const Nav = () => {
         <Link to="/watchlist">
           <button
             type="submit"
-            className="mr-10 hover:text-slate-500 duration-100"
+            className="mr-10 hover:text-slate-500 duration-100 max-sm:mr-4"
           >
             Watchlist
           </button>

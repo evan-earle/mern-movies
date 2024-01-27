@@ -39,13 +39,13 @@ export const SearchMovies = () => {
 
   return (
     <>
-      <div className="w-full mt-5">
+      <div className="w-full mt-5 max-md:mt-8">
         <input
           type="text"
           onChange={inputOnChange}
           placeholder="Search"
           value={term}
-          className="border-b-2 text-2xl text-white focus:outline-none focus:border-blue-300 w-full bg-transparent pb-2"
+          className="border-b-2 text-2xl text-white focus:outline-none focus:border-blue-300 w-full bg-transparent pb-2 "
         />
       </div>
       {isOpen && search && (

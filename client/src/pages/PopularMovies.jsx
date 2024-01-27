@@ -56,15 +56,17 @@ export const PopularMovies = () => {
     <div className="flex flex-col justify-center w-full items-center">
       <Nav />
       <Header />
-      <div className="flex flex-col w-9/12">
+      <div className="flex flex-col w-9/12 max-sm:w-11/12 max-sm:items-center">
         <SearchMovies />
-        <h2 className="text-white text-5xl mt-10 ">Popular Movies</h2>
+        <h2 className="text-white text-5xl mt-10 max-sm:text-4xl max-sm:mt-5">
+          Popular Movies
+        </h2>
       </div>
       {loading ? (
         <Loader />
       ) : (
         movies && (
-          <div className="w-9/12">
+          <div className="w-9/12 max-sm:w-11/12">
             <InfiniteScroll
               dataLength={movies.total_results}
               next={fetchMore}

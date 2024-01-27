@@ -10,7 +10,7 @@ export const Header = () => {
 
   return (
     <>
-      <div className="flex justify-center w-1/3 cursor-pointer mt-14">
+      <div className="flex justify-center w-1/3 cursor-pointer mt-14 max-md:w-2/3 max-md:mt-16">
         <div onClick={navToPopular}>
           <img src={logo} alt="The movie db" />
         </div>

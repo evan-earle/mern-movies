@@ -25,12 +25,12 @@ export const Movies = () => {
   };
 
   return (
-    <div className="w-full mt-10 grid grid-cols-5 gap-4 h-full">
+    <div className="w-full mt-10 grid grid-cols-5 gap-4 h-full max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:mt-5">
       {movies &&
         genre &&
         movies.results.map((movie, index) => (
           <div key={index} className="relative h-full">
-            <div className="cursor-pointer text-green-500 text-2xl top-0 right-0 mt-2 mr-2 absolute bg-white rounded-full  flex items-center justify-center hover:text-green-800  duration-150">
+            <div className="cursor-pointer text-green-500 text-2xl max-sm:text-3xl top-0 right-0 mt-2 mr-2 absolute bg-white rounded-full  flex items-center justify-center hover:text-green-800  duration-150">
               <FontAwesomeIcon
                 icon={faCirclePlus}
                 onClick={() => addMovie(movie.id)}
@@ -47,7 +47,7 @@ export const Movies = () => {
               )}
 
               <div className="text-white absolute w-full p-3 bottom-0 bg-black/50">
-                <div className="text-xl  overflow-hidden truncate">
+                <div className="text-xl overflow-hidden truncate max-sm:text-lg">
                   {movie.title}
                   <div className="text-base">
                     {new Date(movie.release_date).toLocaleDateString("en-US", {

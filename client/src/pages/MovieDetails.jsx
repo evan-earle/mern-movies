@@ -34,7 +34,7 @@ export const MovieDetails = () => {
     <div className="flex flex-col justify-center w-full items-center">
       <Nav />
       <Header />
-      <div className="flex flex-col w-9/12">
+      <div className="flex flex-col w-9/12 max-sm:w-11/12 max-sm:items-center">
         <SearchMovies />
       </div>
       {loading ? <Loader /> : <Movie />}

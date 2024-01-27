@@ -47,19 +47,21 @@ export const Watchlist = () => {
     <div className="flex flex-col justify-center w-full items-center">
       <Nav />
       <Header />
-      <div className="flex flex-col w-9/12">
+      <div className="flex flex-col w-9/12 max-sm:w-11/12 max-sm:items-center">
         <SearchMovies />
-        <h2 className="text-white text-5xl mt-10">Watchlist</h2>
+        <h2 className="text-white text-5xl mt-10 max-sm:text-4xl max-sm:mt-5">
+          Watchlist
+        </h2>
       </div>
       {loading ? (
         <Loader />
       ) : (
-        <div className="w-9/12 mt-10 grid grid-cols-6 gap-4 h-full mb-10">
+        <div className="w-9/12 mt-10 grid grid-cols-6 gap-4 h-full mb-10 max-sm:grid-cols-2 max-sm:mt-5 max-sm:w-11/12">
           {watchlist &&
             genre &&
             watchlist.map((movie, index) => (
               <div key={index} className="relative h-full">
-                <div className="cursor-pointer text-red-500 text-2xl top-0 right-0 mt-2 mr-2 absolute bg-white rounded-full  flex items-center justify-center hover:text-red-800  duration-150">
+                <div className=" cursor-pointer text-red-500 text-2xl max-sm:text-3xl top-0 right-0 mt-2 mr-2 absolute bg-white rounded-full  flex items-center justify-center hover:text-red-800  duration-150">
                   <FontAwesomeIcon
                     icon={faXmarkCircle}
                     onClick={() => deleteMovie(movie.id)}
@@ -75,7 +77,7 @@ export const Watchlist = () => {
                     <img src={`${COVER_PLACEHOLDER}`} alt={movie.title} />
                   )}
                   <div className="text-white absolute w-full p-2 bottom-0 bg-black/50">
-                    <div className="text-lg  overflow-hidden truncate">
+                    <div className="text-xl  overflow-hidden truncate max-sm:text-lg">
                       {movie.title}
                       <div className="text-sm">
                         {new Date(movie.release_date).toLocaleDateString(
