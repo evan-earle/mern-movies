@@ -7,7 +7,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 export const Movie = () => {
-  const { movie, setMovie } = MovieState();
+  const { movie, movies, genre } = MovieState();
 
   const formatRunTime = (runtime) => {
     const hours = Math.floor(runtime / 60) + "h";
@@ -30,9 +30,9 @@ export const Movie = () => {
   return (
     <>
       {movie && (
-        <div className="flex w-9/12 text-white mt-10 max-sm:flex-col max-sm:w-11/12 max-sm:items-center ">
-          <div className="w-3/12 mr-5 relative max-sm:w-8/12">
-            <div className="cursor-pointer text-green-500 text-3xl  top-0 right-0 mt-2 mr-2 absolute bg-white rounded-full  flex items-center justify-center hover:text-green-800  duration-150">
+        <div className="flex w-9/12 text-white mt-10 max-sm:flex-col max-sm:w-11/12 max-sm:items-center  ">
+          <div className="w-3/12 mr-5 relative max-sm:w-8/12 ">
+            <div className="cursor-pointer  text-green-500 text-3xl  top-0 right-0 mt-2 mr-2 absolute bg-white rounded-full  flex items-center justify-center hover:text-green-800  duration-150">
               <FontAwesomeIcon
                 icon={faCirclePlus}
                 onClick={() => addMovie(movie.id)}
@@ -48,7 +48,7 @@ export const Movie = () => {
               <img src={`${COVER_PLACEHOLDER}`} alt={movie.title} />
             )}
           </div>
-          <div className="w-8/12 max-sm:w-full max-sm:mt-5">
+          <div className="w-8/12 max-sm:w-full max-sm:mt-5 text-lg">
             <h1 className="text-5xl max-sm:text-2xl">{movie.title}</h1>
             {movie.runtime && (
               <h3 className="mt-5">
@@ -64,7 +64,7 @@ export const Movie = () => {
                   .join(", ")}
               </h3>
             )}
-            {movie.overview && <h3 className="mt-5">{movie.overview}</h3>}
+            {movie.overview && <h3 className="mt-5 ">{movie.overview}</h3>}
 
             {movie.genres && (
               <h3 className="mt-5 mb-5">

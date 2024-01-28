@@ -44,7 +44,7 @@ export const Watchlist = () => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center w-full items-center">
+    <div className="flex flex-col justify-center w-full items-center ">
       <Nav />
       <Header />
       <div className="flex flex-col w-9/12 max-sm:w-11/12 max-sm:items-center">
@@ -56,11 +56,11 @@ export const Watchlist = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="w-9/12 mt-10 grid grid-cols-6 gap-4 h-full mb-10 max-sm:grid-cols-2 max-sm:mt-5 max-sm:w-11/12">
+        <div className="w-9/12 mt-10 grid grid-cols-6 gap-4 h-full mb-10  max-sm:grid-cols-2 max-sm:mt-5 max-sm:w-11/12">
           {watchlist &&
             genre &&
             watchlist.map((movie, index) => (
-              <div key={index} className="relative h-full">
+              <div key={index} className="relative h-full hover:opacity-65">
                 <div className=" cursor-pointer text-red-500 text-2xl max-sm:text-3xl top-0 right-0 mt-2 mr-2 absolute bg-white rounded-full  flex items-center justify-center hover:text-red-800  duration-150">
                   <FontAwesomeIcon
                     icon={faXmarkCircle}

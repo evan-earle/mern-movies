@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Movies } from "../components/Movies.jsx";
+import { Movie } from "../components/Movie.jsx";
 import InfiniteScroll from "react-infinite-scroll-component";
 import axios from "axios";
 import { Header } from "../components/Header";
