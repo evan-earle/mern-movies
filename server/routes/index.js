@@ -2,7 +2,7 @@ import express from "express";
 import authRoutes from "./auth.js";
 import usersRoutes from "./users.js";
 import moviesRoutes from "./movies.js";
-import checkAuth from "../utils/checkAuth.js";
+import checkAuth from "../middleware/checkAuth.js";
 
 const router = express.Router();
 
