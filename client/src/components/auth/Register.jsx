@@ -69,7 +69,7 @@ export const Register = ({ authType }) => {
     } catch (err) {
       setTimeout(() => {
         setLoading(false);
-        if (err.response.data.message === "User already exists") {
+        if (err.response.data.message === "User already exists test") {
           return toast.error("User already exists");
         } else if (err.response.data.message === "request entity too large") {
           return toast.error("Photo is too large");

@@ -1,19 +1,16 @@
 import bcryptjs from "bcryptjs";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
-import createError from "../utils/createError.js";
 import { v2 as cloudinary } from "cloudinary";
 
 export const register = async (req, res, next) => {
   if (!req.body.name || !req.body.email || !req.body.password) {
-    return next(
-      createError({ status: 401, message: "Email and password required" })
-    );
+    return next({ status: 401, message: "Email and password required" });
   }
   try {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
-      return next(createError({ status: 401, message: "User already exists" }));
+      return next({ status: 401, message: "User already exists" });
     }
     const salt = await bcryptjs.genSalt(10);
     const hashedPassword = await bcryptjs.hash(req.body.password, salt);
@@ -64,21 +61,19 @@ export const storePhoto = async (req, res, next) => {
 
 export const login = async (req, res, next) => {
   if (!req.body.email || !req.body.password) {
-    return next(createError({ status: 401, message: "Email is required" }));
+    return next({ status: 401, message: "Email is required" });
   }
   try {
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
-      return next(createError({ status: 404, message: "No user found" }));
+      return next({ status: 404, message: "No user found" });
     }
     const isPasswordCorrect = await bcryptjs.compare(
       req.body.password,
       user.password
     );
     if (!isPasswordCorrect) {
-      return next(
-        createError({ status: 400, message: "Password is incorrect" })
-      );
+      return next({ status: 400, message: "Password is incorrect" });
     }
     const payload = {
       id: user._id,
@@ -97,7 +92,6 @@ export const login = async (req, res, next) => {
         _id: user._id,
         name: user.name,
         email: user.email,
-        isAdmin: user.isAdmin,
         image: user.image,
         token: token,
       });

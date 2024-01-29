@@ -2,7 +2,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate, Link } from "react-router-dom";
 import { MovieState } from "../context/MovieProvider";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Loader } from "./Loader";
 
 export const Nav = () => {
@@ -41,10 +41,10 @@ export const Nav = () => {
         headers: { "Content-type": "application/json" },
       });
       const photo = data.data.url;
+      setUser((prevState) => ({ ...prevState, image: photo }));
       await axios.post(`/api/users/storePhoto`, {
         photo,
       });
-      setUser((prevState) => ({ ...prevState, image: photo }));
       toast.success("Photo uploaded");
     } catch (err) {
       console.log(err);

@@ -10,7 +10,7 @@ import { Loader } from "../components/Loader.jsx";
 import { Nav } from "../components/Nav.jsx";
 
 export const PopularMovies = () => {
-  const { movies, setMovies, genre, setGenre } = MovieState();
+  const { movies, setMovies, setGenre } = MovieState();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

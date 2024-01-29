@@ -21,7 +21,6 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
 app.use(cookieParser());
-// app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 // Connect to database
 connectToDB();
