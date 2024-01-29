@@ -10,7 +10,6 @@ import toast from "react-hot-toast";
 
 export const Movies = () => {
   const { movies, setMovies, genre } = MovieState();
-  console.log(movies);
   const addMovie = async (id) => {
     try {
       const { data } = await axios.post(`/api/users/watchlist/${id}`);
