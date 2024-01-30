@@ -20,7 +20,7 @@ export const PopularMovies = () => {
     setLoading(false);
   }, []);
 
-  const fetchMovies = async (page = 2) => {
+  const fetchMovies = async (page = 1) => {
     try {
       const { data } = await axios.get(`/api/movies/popularMovies/${page}`);
 
