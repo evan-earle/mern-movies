@@ -4,9 +4,6 @@ import jwt from "jsonwebtoken";
 import { v2 as cloudinary } from "cloudinary";
 
 export const register = async (req, res, next) => {
-  if (!req.body.name || !req.body.email || !req.body.password) {
-    return next({ status: 401, message: "Email and password required" });
-  }
   try {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
