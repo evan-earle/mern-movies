@@ -57,9 +57,6 @@ export const storePhoto = async (req, res, next) => {
 };
 
 export const login = async (req, res, next) => {
-  if (!req.body.email || !req.body.password) {
-    return next({ status: 401, message: "Email is required" });
-  }
   try {
     const user = await User.findOne({ email: req.body.email });
     if (!user) {

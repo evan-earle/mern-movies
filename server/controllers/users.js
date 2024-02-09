@@ -1,24 +1,5 @@
 import User from "../models/User.js";
-import { v2 as cloudinary } from "cloudinary";
 import axios from "axios";
-
-export const upload = async (req, res, next) => {
-  cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-  });
-  try {
-    const fileStr = req.body.data;
-    const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
-      upload_preset: "chat-app",
-    });
-
-    return res.status(200).json(uploadedResponse);
-  } catch (err) {
-    return next(err);
-  }
-};
 
 export const storePhoto = async (req, res, next) => {
   try {

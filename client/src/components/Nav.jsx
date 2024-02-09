@@ -35,14 +35,14 @@ export const Nav = () => {
   const storePhoto = async (image) => {
     setLoading(true);
     try {
-      const data = await axios("/api/users/upload", {
+      const data = await axios("/api/auth/upload", {
         method: "POST",
         data: JSON.stringify({ data: image }),
         headers: { "Content-type": "application/json" },
       });
       const photo = data.data.url;
       setUser((prevState) => ({ ...prevState, image: photo }));
-      await axios.post(`/api/users/storePhoto`, {
+      await axios.put(`/api/users/storePhoto`, {
         photo,
       });
       toast.success("Photo uploaded");
