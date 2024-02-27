@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { mapGenres } from "../lib/helper";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
-import { IMAGES_PATH, COVER_PLACEHOLDER } from "../config";
+import { IMAGES_PATH, COVER_PLACEHOLDER } from "../assets/images";
 import toast from "react-hot-toast";
 
 export const Watchlist = () => {

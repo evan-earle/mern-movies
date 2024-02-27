@@ -2,7 +2,7 @@ import axios from "axios";
 import { MovieState } from "../context/MovieProvider";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { IMAGES_PATH, COVER_PLACEHOLDER } from "../config";
+import { IMAGES_PATH, COVER_PLACEHOLDER } from "../assets/images";
 import { mapGenres } from "../lib/helper";
 
 export const SearchMovies = () => {

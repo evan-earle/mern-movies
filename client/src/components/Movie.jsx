@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { IMAGES_PATH, COVER_PLACEHOLDER } from "../config";
+import { IMAGES_PATH, COVER_PLACEHOLDER } from "../assets/images";
 import { MovieState } from "../context/MovieProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";

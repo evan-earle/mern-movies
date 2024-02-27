@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
-import { IMAGES_PATH, COVER_PLACEHOLDER } from "../config";
+import { IMAGES_PATH, COVER_PLACEHOLDER } from "../assets/images";
 import { MovieState } from "../context/MovieProvider";
 import { mapGenres } from "../lib/helper";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
