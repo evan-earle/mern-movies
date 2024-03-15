@@ -17,11 +17,11 @@ export const register = async (req, res, next) => {
       email: req.body.email,
       password: hashedPassword,
     });
+
     await newUser.save();
     return res.status(201).json("New user created");
-  } catch (err) {
-    console.log(err);
-    return next(err);
+  } catch (error) {
+    return next(error);
   }
 };
 
@@ -34,25 +34,25 @@ export const uploadPhoto = async (req, res, next) => {
   try {
     const fileStr = req.body.data;
     const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
-      upload_preset: "chat-app",
+      upload_preset: "ml_default",
     });
     return res.status(200).json(uploadedResponse);
-  } catch (err) {
-    return next(err);
+  } catch (error) {
+    return next(error);
   }
 };
 
 export const storePhoto = async (req, res, next) => {
   try {
     const data = await User.findOneAndUpdate(
-      { email: req.body.email },
       {
-        image: req.body.photo,
-      }
+        email: req.body.email,
+      },
+      { image: req.body.photo }
     );
     return res.status(200).json(data);
-  } catch (err) {
-    return next(err);
+  } catch (error) {
+    return next(error);
   }
 };
 
@@ -62,6 +62,7 @@ export const login = async (req, res, next) => {
     if (!user) {
       return next({ status: 404, message: "No user found" });
     }
+
     const isPasswordCorrect = await bcryptjs.compare(
       req.body.password,
       user.password
@@ -89,28 +90,26 @@ export const login = async (req, res, next) => {
         image: user.image,
         token: token,
       });
-  } catch (err) {
-    console.log(err);
-    return next(err);
+  } catch (error) {
+    return next(error);
   }
 };
 
-export const logout = (req, res) => {
-  res.clearCookie("access_token");
-  return res.status(200).json({ message: "Logout successful" });
+export const logout = async (req, res, next) => {
+  try {
+    res.clearCookie("access_token");
+    return res.status(200).json({ message: "Logout successful" });
+  } catch (error) {
+    return next(error);
+  }
 };
 
-export const isLoggedIn = (req, res) => {
+export const isLoggedIn = async (req, res, next) => {
   const token = req.cookies.access_token;
   if (!token) {
     return res.json(false);
   }
-
   return jwt.verify(token, process.env.JWT_TOKEN, (err) => {
-    if (err) {
-      return res.json(false);
-    } else {
-      return res.json(true);
-    }
+    err ? false : true;
   });
 };

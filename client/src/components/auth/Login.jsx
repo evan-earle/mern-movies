@@ -129,6 +129,7 @@ export const Login = ({ authType }) => {
         )}
       </button>
       <button
+        type="submit"
         className="mt-2 w-full rounded  p-2 text-center bg-slate-500 text-white"
         onClick={() => {
           setEmail("guest@account.com");
