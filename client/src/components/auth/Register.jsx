@@ -129,7 +129,7 @@ export const Register = ({ authType }) => {
 
       <div className="flex flex-col mt-3 ">
         <div>
-          <label htmlFor="username">Email Address</label>
+          <label htmlFor="email">Email Address</label>
           <span className="text-red-500"> *</span>
         </div>
         <input
@@ -197,6 +197,7 @@ export const Register = ({ authType }) => {
           className="mt-2 w-full p-2 "
         />
       </div>
+
       <button
         className="mt-4 w-full rounded  p-2 text-center bg-blue-500 text-white"
         type="submit"
