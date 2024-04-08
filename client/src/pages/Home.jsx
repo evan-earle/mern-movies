@@ -14,6 +14,7 @@ export const Home = () => {
   };
 
   useEffect(() => {
+   
     if (auth) {
       navigate("/popular");
     }

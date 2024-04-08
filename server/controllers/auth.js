@@ -110,6 +110,9 @@ export const isLoggedIn = async (req, res, next) => {
     return res.json(false);
   }
   return jwt.verify(token, process.env.JWT_TOKEN, (err) => {
-    err ? false : true;
+    if (err) {
+      return res.json(false)
+    }
+    return res.json(true)
   });
 };

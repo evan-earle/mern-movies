@@ -4,7 +4,7 @@ import useAuth from "../hooks/useAuth.js";
 function PrivateRoutes() {
   const { auth } = useAuth();
   if (auth === undefined) {
-    return "loading...";
+    return "LOADING.";
   }
 
   return auth === true ? <Outlet></Outlet> : <Navigate to="/"></Navigate>;
